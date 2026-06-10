@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RISE | Making Cakes — Video Lessons</title>
+<meta name="description" content="Watch how a real cake comes together, step by step. Four video lessons from the RISE kitchen.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Plus+Jakarta+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --cocoa:#46132b;        /* deep plum-berry: dark sections + headings */
+    --cocoa-mid:#7d2a4d;    /* rose: body text on pink */
+    --cream:#fce4ec;        /* strawberry-milk pink: base bg + light text on dark */
+    --cream-2:#f8d2e0;      /* deeper pink: secondary surfaces */
+    --raspberry:#d6336c;    /* primary accent / CTA / the 'scratch' pink */
+    --raspberry-dk:#b02457;
+    --base:#d6336c;         /* page base background: the scratch pink */
+    --butter:#f4c44e;       /* secondary accent */
+    --ink:#46132b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;
+    background:var(--base);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:.95;letter-spacing:-.02em}
+  .mono{font-family:"Space Mono",monospace}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* eyebrow label */
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:.6em;
+  }
+  .eyebrow::before{content:"";width:28px;height:2px;background:currentColor;display:inline-block}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(43,26,20,.92);
+    backdrop-filter:blur(8px);
+    color:var(--cream);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.5rem;letter-spacing:-.04em;display:flex;align-items:center;gap:.45rem}
+  .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--raspberry);display:inline-block}
+  .nav-links{display:flex;gap:2rem;font-size:.8rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .nav-links a{opacity:.75;transition:opacity .2s}
+  .nav-links a:hover{opacity:1}
+  .nav-cta{
+    background:var(--raspberry);color:#fff;font-weight:700;font-size:.78rem;
+    text-transform:uppercase;letter-spacing:.08em;padding:.7rem 1.2rem;border-radius:999px;
+    transition:transform .15s,background .2s;
+  }
+  .nav-cta:hover{background:var(--raspberry-dk);transform:translateY(-1px)}
+  .burger{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:var(--cocoa);color:var(--cream);
+    position:relative;overflow:hidden;
+    padding:72px 0 96px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(2.8rem,7vw,5.6rem);font-weight:800;text-transform:lowercase}
+  .hero h1 .pink{color:var(--raspberry)}
+  .hero p.lead{margin-top:1.5rem;max-width:30ch;font-size:1.05rem;line-height:1.5;color:#f4c9da}
+  .hero-eyebrow{color:var(--butter);margin-bottom:1.6rem}
+  .hero-actions{display:flex;gap:14px;margin-top:2.2rem;flex-wrap:wrap}
+  .btn-primary{
+    background:var(--butter);color:var(--cocoa);font-weight:800;
+    padding:.95rem 1.7rem;border-radius:999px;font-size:.92rem;
+    text-transform:uppercase;letter-spacing:.05em;
+    transition:transform .15s;
+  }
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{
+    border:1.5px solid rgba(251,243,228,.4);color:var(--cream);
+    padding:.95rem 1.7rem;border-radius:999px;font-size:.92rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:.05em;transition:border-color .2s;
+  }
+  .btn-ghost:hover{border-color:var(--cream)}
+
+  /* CSS layered cake */
+  .cake-stage{display:flex;justify-content:center;align-items:center;min-height:360px;position:relative}
+  .hero-cake{
+    width:100%;max-width:520px;height:auto;
+    filter:drop-shadow(0 24px 40px rgba(0,0,0,.45));
+    animation:cakeIn .9s cubic-bezier(.18,.9,.3,1.1) both, floaty 6s ease-in-out 1s infinite;
+  }
+  @keyframes cakeIn{from{opacity:0;transform:translateY(40px) rotate(-3deg) scale(.92)}to{opacity:1;transform:translateY(0) rotate(0) scale(1)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .cake{position:relative;width:280px}
+  .layer{
+    position:relative;margin:0 auto;border-radius:14px;
+    transform-origin:bottom center;
+    animation:rise .7s cubic-bezier(.18,.9,.3,1.2) backwards;
+  }
+  .sponge{background:linear-gradient(180deg,#d99a5b,#b9743b);box-shadow:inset 0 -6px 0 rgba(0,0,0,.12)}
+  .frost{background:var(--raspberry);box-shadow:inset 0 -4px 0 rgba(0,0,0,.12)}
+  .l1{width:260px;height:54px;animation-delay:.05s}
+  .lf1{width:268px;height:18px;border-radius:10px;margin-top:-6px;animation-delay:.2s}
+  .l2{width:218px;height:50px;animation-delay:.35s}
+  .lf2{width:226px;height:18px;border-radius:10px;margin-top:-6px;animation-delay:.5s}
+  .l3{width:176px;height:46px;animation-delay:.65s}
+  /* frosting top + drips */
+  .top-frost{
+    width:188px;height:40px;background:var(--raspberry);
+    border-radius:20px 20px 14px 14px;margin:-8px auto 0;position:relative;
+    animation:rise .7s cubic-bezier(.18,.9,.3,1.2) backwards;animation-delay:.8s;
+  }
+  .drip{position:absolute;top:26px;width:18px;background:var(--raspberry);border-radius:0 0 10px 10px}
+  .drip.a{left:24px;height:22px}
+  .drip.b{left:84px;height:34px}
+  .drip.c{right:30px;height:18px}
+  .candle{position:absolute;top:-44px;left:50%;transform:translateX(-50%);width:8px;height:38px;background:repeating-linear-gradient(45deg,var(--cream) 0 6px,var(--butter) 6px 12px);border-radius:3px;animation:rise .6s ease backwards;animation-delay:1s}
+  .flame{position:absolute;top:-58px;left:50%;transform:translateX(-50%);width:12px;height:18px;background:radial-gradient(circle at 50% 70%,var(--butter),#ff8a3d);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;animation:flick 1.1s ease-in-out infinite,rise .6s ease backwards;animation-delay:0s,1.1s}
+  /* sprinkles */
+  .sprinkle{position:absolute;width:10px;height:3px;border-radius:2px;opacity:.9}
+  @keyframes rise{from{opacity:0;transform:translateY(34px) scaleY(.4)}to{opacity:1;transform:translateY(0) scaleY(1)}}
+  @keyframes flick{0%,100%{transform:translateX(-50%) scale(1) rotate(-2deg)}50%{transform:translateX(-50%) scale(1.12) rotate(2deg)}}
+
+  /* rosette badge */
+  .rosette{
+    position:absolute;right:6%;top:18%;width:104px;height:104px;border-radius:50%;
+    background:var(--cream);color:var(--cocoa);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;font-family:"Space Mono",monospace;font-size:.62rem;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;line-height:1.3;
+    box-shadow:0 8px 30px rgba(0,0,0,.3);
+    animation:spin 18s linear infinite;
+  }
+  .rosette b{font-family:"Bricolage Grotesque";font-size:1.1rem;letter-spacing:-.02em}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---------- INTRO STRIP ---------- */
+  .strip{background:var(--cream-2);padding:64px 0}
+  .strip-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .strip h2{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;text-transform:uppercase;color:var(--cocoa)}
+  .strip p{font-size:1.05rem;line-height:1.65;color:var(--cocoa-mid);max-width:46ch}
+  .strip .eyebrow{color:var(--raspberry);margin-bottom:1rem}
+
+  /* ---------- STATEMENT ---------- */
+  .statement{background:var(--cocoa);color:var(--cream);padding:88px 0;text-align:center}
+  .statement h2{font-size:clamp(2.4rem,6vw,4.4rem);font-weight:800;text-transform:lowercase}
+  .statement h2 span{color:var(--raspberry)}
+  .statement p{max-width:54ch;margin:1.8rem auto 0;color:#f4c9da;font-size:1.05rem;line-height:1.6}
+
+  /* ---------- STEPS ---------- */
+  .steps{padding:88px 0}
+  .steps-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+  .steps-head h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;text-transform:uppercase;color:var(--cream)}
+  .steps-head .eyebrow{color:var(--butter);margin-bottom:.8rem}
+  .step-list{display:grid;gap:14px}
+  .step{
+    display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center;
+    padding:26px 28px;border-radius:18px;background:#fff;
+    border:1.5px solid var(--cream-2);
+    transition:transform .25s cubic-bezier(.18,.9,.3,1.2),box-shadow .25s,border-color .25s;
+  }
+  .step:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(43,26,20,.18);border-color:var(--cocoa)}
+  .step-num{font-family:"Space Mono",monospace;font-weight:700;font-size:1.5rem;color:var(--raspberry);white-space:nowrap}
+  .step-body h3{font-size:1.3rem;font-weight:800;color:var(--cocoa);margin-bottom:.3rem}
+  .step-body p{color:var(--cocoa-mid);font-size:.96rem;line-height:1.55;max-width:60ch}
+  .step-meta{font-family:"Space Mono",monospace;font-size:.74rem;letter-spacing:.06em;text-align:right;color:var(--cocoa-mid);text-transform:uppercase;white-space:nowrap}
+  .step-meta b{display:block;color:var(--cocoa);font-size:1rem;letter-spacing:0}
+  .tip{
+    margin-top:14px;padding:22px 26px;border-radius:18px;
+    background:var(--butter);color:var(--cocoa);font-weight:600;
+    display:flex;gap:14px;align-items:center;
+  }
+  .tip .label{font-family:"Space Mono",monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;background:var(--cocoa);color:var(--butter);padding:.4em .8em;border-radius:999px;white-space:nowrap}
+
+  /* ---------- BAKERS ---------- */
+  .bakers{background:var(--cream-2);padding:88px 0}
+  .bakers h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:800;text-transform:uppercase;color:var(--cocoa);margin-bottom:8px}
+  .bakers .eyebrow{color:var(--raspberry);margin-bottom:.8rem}
+  .crew{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:40px}
+  .baker{background:#fff;border-radius:18px;padding:28px 22px;text-align:center;border:1.5px solid #fff;transition:transform .2s,border-color .2s}
+  .baker:hover{transform:translateY(-5px);border-color:var(--raspberry)}
+  .avatar{width:84px;height:84px;border-radius:50%;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;background:var(--cream);overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .baker h3{font-size:1.25rem;font-weight:800;color:var(--cocoa)}
+  .baker .role{font-family:"Space Mono",monospace;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:var(--raspberry);margin-top:4px}
+
+  /* ---------- MARQUEE ---------- */
+  .marquee{background:var(--butter);color:var(--cocoa);padding:22px 0;overflow:hidden;border-top:4px solid var(--cocoa);border-bottom:4px solid var(--cocoa)}
+  .marquee-track{display:flex;gap:48px;white-space:nowrap;width:max-content;animation:scroll 22s linear infinite}
+  .marquee-track span{font-family:"Bricolage Grotesque";font-weight:800;font-size:1.5rem;text-transform:uppercase;letter-spacing:.02em;display:inline-flex;align-items:center;gap:48px}
+  .marquee-track span::after{content:"●";color:var(--raspberry);font-size:.8rem}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta-band{background:var(--cocoa);color:var(--cream);text-align:center;padding:84px 0}
+  .cta-band h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:800;text-transform:lowercase}
+  .cta-band h2 span{color:var(--butter)}
+  .cta-band .btn-primary{margin-top:2rem}
+  footer{background:#2e0c1b;color:#cf93ac;padding:48px 0 40px;font-size:.9rem}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+  .foot-grid .logo{color:var(--cream)}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a{opacity:.8;transition:opacity .2s}
+  .foot-links a:hover{opacity:1;color:var(--raspberry)}
+  .copy{margin-top:28px;font-family:"Space Mono",monospace;font-size:.74rem;letter-spacing:.04em;opacity:.55}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:860px){
+    .hero-grid,.strip-grid{grid-template-columns:1fr}
+    .cake-stage{margin-top:30px;min-height:300px}
+    .rosette{right:0;top:0}
+    .nav-links{display:none}
+    .crew{grid-template-columns:repeat(2,1fr)}
+    .step{grid-template-columns:auto 1fr;gap:16px;padding:20px}
+    .step-meta{grid-column:2;text-align:left;margin-top:6px}
+    .step-num{font-size:1.2rem}
+  }
+  @media(max-width:480px){
+    .crew{grid-template-columns:1fr}
+    .nav-cta{padding:.6rem .9rem;font-size:.7rem}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;scroll-behavior:auto}
+    .marquee-track{animation:none;justify-content:center}
+  }
+  :focus-visible{outline:3px solid var(--butter);outline-offset:3px;border-radius:6px}
+
+  /* ---------- VIDEO LESSONS PAGE ---------- */
+  .page-hero{background:var(--cocoa);color:var(--cream);padding:72px 0 80px;text-align:center}
+  .page-hero .eyebrow{color:var(--butter);justify-content:center;margin-bottom:1.4rem}
+  .page-hero h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:800;text-transform:lowercase}
+  .page-hero h1 .pink{color:var(--raspberry)}
+  .page-hero p.lead{max-width:48ch;margin:1.4rem auto 0;color:#f4c9da;font-size:1.05rem;line-height:1.6}
+
+  .lessons{padding:72px 0}
+  .lessons-head{margin-bottom:40px}
+  .lessons-head .eyebrow{color:var(--raspberry);margin-bottom:.8rem}
+  .lessons-head h2{font-size:clamp(2rem,4.6vw,3.2rem);font-weight:800;color:var(--cocoa);text-transform:uppercase}
+  .lessons-head p{color:var(--cocoa-mid);max-width:62ch;margin-top:.8rem;line-height:1.6}
+
+  .video-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+  .lesson{background:#fff;border:1.5px solid var(--cream-2);border-radius:20px;overflow:hidden;transition:transform .25s cubic-bezier(.18,.9,.3,1.2),box-shadow .25s,border-color .25s}
+  .lesson:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(43,26,20,.14);border-color:var(--raspberry)}
+
+  /* video / placeholder area, locked to 16:9 */
+  .video-wrap{position:relative;aspect-ratio:16/9;background:var(--cocoa);overflow:hidden}
+  .video-wrap video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+  .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(214,51,108,.18), transparent 60%),
+      repeating-linear-gradient(45deg, #4e1733 0 18px, #46132b 18px 36px);
+    color:var(--cream);text-align:center;padding:20px}
+  .placeholder .play{width:64px;height:64px;border-radius:50%;background:var(--butter);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .placeholder .play svg{width:24px;height:24px;margin-left:3px}
+  .placeholder .ph-label{font-family:"Space Mono",monospace;font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  .placeholder .ph-note{font-size:.8rem;color:#f4c9da;max-width:30ch;line-height:1.45}
+  .lesson-num{position:absolute;top:14px;left:14px;z-index:2;font-family:"Space Mono",monospace;font-weight:700;font-size:.8rem;letter-spacing:.06em;background:var(--raspberry);color:#fff;padding:.4em .8em;border-radius:999px}
+  .lesson-body{padding:22px 24px 26px}
+  .lesson-body h3{font-size:1.3rem;font-weight:800;color:var(--cocoa);margin-bottom:.4rem}
+  .lesson-body p{color:var(--cocoa-mid);font-size:.96rem;line-height:1.55}
+  .lesson-meta{display:flex;gap:14px;margin-top:14px;font-family:"Space Mono",monospace;font-size:.74rem;letter-spacing:.04em;color:var(--raspberry);text-transform:uppercase}
+
+  .how-to{background:var(--cream-2);padding:54px 0}
+  .how-to .eyebrow{color:var(--raspberry);margin-bottom:.8rem}
+  .how-to h2{font-size:1.7rem;font-weight:800;color:var(--cocoa);text-transform:uppercase;margin-bottom:1rem}
+  .how-to p{color:var(--cocoa-mid);max-width:70ch;line-height:1.65;margin-bottom:.8rem}
+  .how-to code{font-family:"Space Mono",monospace;background:#fff;border:1.5px solid var(--cream);padding:.15em .5em;border-radius:6px;font-size:.86rem;color:var(--cocoa)}
+
+  @media(max-width:760px){.video-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="index.html" class="logo"><span class="dot"></span>RISE</a>
+    <div class="nav-links">
+      <a href="index.html#history">Chapter 1</a>
+      <a href="index.html#ingredients">Ingredients</a>
+      <a href="index.html#methods">Methods</a>
+      <a href="making-cakes.html">Video Lessons</a>
+    </div>
+    <a href="index.html" class="nav-cta">Back to Chapter 1</a>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <div class="wrap">
+    <span class="eyebrow">RISE Kitchen · Video Lessons</span>
+    <h1>making cakes, <span class="pink">step</span> by step.</h1>
+    <p class="lead">Reading is one thing — watching is another. Four short lessons that take you from mixing bowl to finished cake.</p>
+  </div>
+</header>
+
+<section class="lessons">
+  <div class="wrap">
+    <div class="lessons-head">
+      <span class="eyebrow">Watch &amp; bake along</span>
+      <h2>Four cake-making lessons</h2>
+      <p>Each lesson is a short, focused clip. Videos are coming soon — the players below are placeholders, ready to drop your footage into.</p>
+    </div>
+
+    <div class="video-grid">
+
+      <article class="lesson">
+        <div class="video-wrap">
+          <span class="lesson-num">Lesson 01</span>
+          <!-- Replace the placeholder div below with:
+               <video controls poster="poster1.jpg"><source src="lesson1.mp4" type="video/mp4"></video> -->
+          <div class="placeholder">
+            <span class="play"><svg viewBox="0 0 24 24" fill="#46132b"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="ph-label">Video coming soon</span>
+            <span class="ph-note">Mixing the batter — creaming the butter &amp; sugar.</span>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <h3>Mixing the batter</h3>
+          <p>How to cream butter and sugar properly, add the eggs without splitting, and fold in the flour for a light crumb.</p>
+          <div class="lesson-meta"><span>Beginner</span><span>~6 min</span></div>
+        </div>
+      </article>
+
+      <article class="lesson">
+        <div class="video-wrap">
+          <span class="lesson-num">Lesson 02</span>
+          <!-- Replace with: <video controls poster="poster2.jpg"><source src="lesson2.mp4" type="video/mp4"></video> -->
+          <div class="placeholder">
+            <span class="play"><svg viewBox="0 0 24 24" fill="#46132b"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="ph-label">Video coming soon</span>
+            <span class="ph-note">Preparing the tins &amp; getting the oven right.</span>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <h3>Prep &amp; bake</h3>
+          <p>Greasing and lining your tins, scaling the batter evenly, and the oven temperature and timing that get a clean rise.</p>
+          <div class="lesson-meta"><span>Beginner</span><span>~5 min</span></div>
+        </div>
+      </article>
+
+      <article class="lesson">
+        <div class="video-wrap">
+          <span class="lesson-num">Lesson 03</span>
+          <!-- Replace with: <video controls poster="poster3.jpg"><source src="lesson3.mp4" type="video/mp4"></video> -->
+          <div class="placeholder">
+            <span class="play"><svg viewBox="0 0 24 24" fill="#46132b"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="ph-label">Video coming soon</span>
+            <span class="ph-note">Cooling, then making a smooth buttercream.</span>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <h3>Cool &amp; frost</h3>
+          <p>Why you must cool fully before frosting, plus whipping up a smooth buttercream and getting an even coat.</p>
+          <div class="lesson-meta"><span>Intermediate</span><span>~7 min</span></div>
+        </div>
+      </article>
+
+      <article class="lesson">
+        <div class="video-wrap">
+          <span class="lesson-num">Lesson 04</span>
+          <!-- Replace with: <video controls poster="poster4.jpg"><source src="lesson4.mp4" type="video/mp4"></video> -->
+          <div class="placeholder">
+            <span class="play"><svg viewBox="0 0 24 24" fill="#46132b"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="ph-label">Video coming soon</span>
+            <span class="ph-note">Layering, decorating &amp; the finishing touches.</span>
+          </div>
+        </div>
+        <div class="lesson-body">
+          <h3>Decorate &amp; finish</h3>
+          <p>Stacking and filling layers, finishing the sides, and simple decoration ideas to make it look the part.</p>
+          <div class="lesson-meta"><span>Intermediate</span><span>~8 min</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="how-to">
+  <div class="wrap">
+    <span class="eyebrow">For when your videos are ready</span>
+    <h2>How to add your clips</h2>
+    <p>Each placeholder has a comment in the code showing exactly what to paste in. In short: put your video file (e.g. <code>lesson1.mp4</code>) in the same folder as this page, then replace the <code>&lt;div class="placeholder"&gt;...&lt;/div&gt;</code> with a <code>&lt;video controls&gt;</code> tag pointing at it.</p>
+    <p>Keep each clip compressed for the web (around 720p is plenty) so the page stays fast to load. A poster image is optional but gives viewers a nice still frame before they hit play.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a href="index.html" class="logo"><span class="dot"></span>RISE</a>
+      <div class="foot-links">
+        <a href="index.html#history">Chapter 1</a>
+        <a href="index.html#ingredients">Ingredients</a>
+        <a href="index.html#methods">Methods</a>
+        <a href="making-cakes.html">Video Lessons</a>
+      </div>
+    </div>
+    <div class="copy">© 2026 RISE · DHB1243 Cake Making · Video Lessons</div>
+  </div>
+</footer>
+
+</body>
+</html>
